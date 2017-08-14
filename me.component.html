@@ -1,0 +1,513 @@
+<div class=" top-marg">
+
+  <div class="row msg-text">
+    <message-window [firstName]="user" [message]="message" [recommendOther]="true" [recommend]="false" [insideHeader]="sub_header"
+                    [img_yourCoverage]="img_dynamic" [img_caution]="img_warning" [img_stop]="img_bad"
+                    [img_thumb]="img_good"></message-window>
+  </div>
+
+  <div class="row col-xs-12 abt_container ">
+
+
+    <form #aboutMeForm="ngForm" class = "tundora-input" novalidate (ngSubmit)="submitAboutMeForm($event)">
+
+      <div class = "about-me-form-input-wrapper row">
+        <div class = "container-fluid-block">
+
+          <!-- Name -->
+          <div class="about-me-wrapper noclear"> <!-- wrapper -->
+            <div class="fnameDiv col-sm-5 col-xs-9">
+              <div [ngClass]="{'form-group':true,'form-group-active':firstNameFilled, 'form-group-error':firstNameError}">
+
+                <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt':true, 'label-active':firstNameFilled, 'label-error':firstNameError}">
+                  <label for="firstName">First Name</label>
+                </div>
+
+                <input tabindex="4" type="text" class="form-control errorMarg" name="firstName" id="firstName"
+                       data-dl='{"da_track":"false","event":"change"}'
+                       [(ngModel)]="aboutMe.firstName" #firstName="ngModel"
+                       [validateName]="rules?.FirstName" (focus)="onFocusLabel($event)"
+                       (dblclick)="dblclickLabel($event.target.id)" (blur)="onFisrtNameBlur($event.target.id)"
+                       (keyup)="onChangeLabel($event)" maxlength="17">
+
+
+                <div [hidden]="!firstNameError">
+                  <div class="inputError" *ngIf="!!aboutMeContent">
+                    <i class='fa fa-times-circle errorIcon'></i>
+                    <span class="errorText"
+                          [innerHtml]='aboutMeContent.get("ER_ABOUTME_INVALID_FIRST_NAME")'></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Middle Initial -->
+            <div class="about-me-wrapper noclear">
+
+              <div class="mnameDiv col-sm-2 col-xs-3">
+                <div [ngClass]="{'form-group':true, 'form-group-active':miFilled }">
+                  <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt': true, 'label-active': miFilled}">
+                    <label for="middleInitial">MI</label>
+                  </div>
+                  <input tabindex="5" type="text" class="form-control" name="middleInitial" id="middleInitial"
+                         [(ngModel)]="aboutMe.middleInitial"
+                         #middleInitial="ngModel"
+                         (focus)="onFocusLabel($event)" (blur)="onmiddleInitialBlur($event)"
+                         (keyup)="onChangeLabel($event)"
+                         data-dl='{"da_track":"false","event":"change"}' alphaRestrict maxlength="1">
+                </div>
+              </div>
+            </div>
+            <!-- End Middle Initial -->
+
+            <div class="about-me-wrapper ">
+
+              <div class="lnameDiv col-sm-5">
+                <div [ngClass]="{'form-group':true,'form-group-active':lastNameFilled, 'form-group-error':lastNameError }">
+                  <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt':true, 'label-active':lastNameFilled, 'label-error':lastNameError}">
+                    <label for="lastName">Last Name</label>
+                  </div>
+
+                  <input tabindex="6" type="text" class="form-control errorMarg" name="lastName" id="lastName"
+                         data-dl='{"da_track":"false","event":"change"}'
+                         [(ngModel)]="aboutMe.lastName" #lastName="ngModel"
+                         [validateName]="rules?.LastName" (dblclick)="dblclickLabel($event.target.id)"
+                         (focus)="onFocusLabel($event)" (blur)="onlastNameBlur($event.target.id)"
+                         (keyup)="onChangeLabel($event)" maxlength="17">
+
+                  <div [hidden]="!lastNameError">
+                    <div class="inputError" *ngIf="!!aboutMeContent">
+                      <i class='fa fa-times-circle errorIcon'></i>
+                      <span class="errorText"
+                            [innerHtml]='aboutMeContent.get("ER_ABOUTME_INVALID_LAST_NAME")'></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end wrapper -->
+
+
+          <div class="row"></div> <!-- spacing for error messages -->
+
+          <!-- Address -->
+          <div [ngClass]="{
+                    'about-me-wrapper': true,
+                    'no-margin': true,
+                    'hide': addressNotFoundSelected
+                }"> <!-- wrapper -->
+
+            <div class="col-sm-10 addressDiv">
+              <div [ngClass]="{'form-group':true,'form-group-active':addressFilled, 'form-group-error':addressError }">
+
+                <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt':true, 'label-active':addressFilled, 'label-error':addressError}">
+                  <label for="aboutMeAddress">Address</label>
+                </div>
+
+                <input tabindex="7" maxlength="100" type="text" class="form-control addressInput" name="aboutMeAddress" #aboutMeAddressInput
+                       id="aboutMeAddress"
+                       [(ngModel)]="aboutMe.aboutMeAddress" #aboutMeAddress="ngModel" autocomplete="off"
+                       (focus)="onFocusLabel($event);addressSuggestion.onShowSuggestions($event)"
+                       (blur)="onaboutMeAddress($event.target.id);addressSuggestion.onHideSuggestions($event)"
+                       (keyup)="onChangeLabel($event)" (click)="addressSuggestion.onShowSuggestions($event)"
+                       [validateName]="rules?.Address" >
+                <div [hidden]="!addressError">
+                  <div class="inputError" *ngIf="!!aboutMeContent">
+                    <i class='fa fa-times-circle errorIcon'></i>
+                    <span class="errorText"
+                          [innerHtml]="'Please enter a valid address'"></span>
+                  </div>
+                </div>
+                <app-address-suggestions
+                  #addressSuggestion
+                  [hidden]="hideSuggestions"
+                  [input]="aboutMeAddressInput"
+                  [scope]="{state:addressSuggestionsStateFilter}"
+                  (addressChanged)="onAddressChanged($event)"
+                  (addressNotListedEvent)="onAddressNotListedEvent($event)"
+                  notListedText="I don't see it listed">
+                </app-address-suggestions>
+
+              </div>
+            </div>
+
+
+            <div class="col-sm-2 postFixDiv">
+              <div [ngClass]="{'form-group':true,'form-group-active':postFixFilled, 'form-group-error':postFixError }">
+                <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt':true, 'label-active':postFixFilled, 'label-error':postFixError}">
+                  <label for="aboutMeAddressPostFix">Apt/Suite</label>
+                </div>
+
+                <input tabindex="8" type="text" class="form-control" name="aboutMeAddressPostFix" id="aboutMeAddressPostFix"
+                       data-dl='{"da_track":"false","event":"change"}'
+                       [(ngModel)]="aboutMe.aboutMeAddressPostFix" #aboutMeAddressPostFix="ngModel"
+                       (focus)="onFocusLabel($event)"
+                       (blur)="onaboutMeAddressPostFix($event.target.id)" (keyup)="onChangeLabel($event)"
+                       alphaRestrictSpecial maxlength="5">
+
+              </div>
+            </div>
+          </div> <!-- end wrapper -->
+
+          <div [ngClass]="{
+                'about-me-wrapper': true,
+                'no-address-found-container': true,
+                'hide': !addressNotFoundSelected
+                    }">
+            <div *ngIf="!!aboutMeContent" class="about-me-wrapper no-found-address-heading" [innerHtml]="getNoAddressContent()"></div>
+            <div class="no-found-address-wrapper col-xs-12 col-sm-10">
+              <div [ngClass]="{
+                            'form-group':true,
+                            'no-found-address': true
+                         }">
+                <label [ngClass]="{
+                                  'no-found-address-label': true,
+                                  'active-label': activeAddress,
+                                  'label-error': noFoundAddressError
+                                }">Street Address</label>
+                <input tabindex="9" #noFoundAddress
+                       #noFoundAddressInput="ngModel"
+                       name="noFoundAddressInput"
+                       id="noFoundAddress"
+                       maxlength="40"
+                       [(ngModel)]="noFoundAddressText"
+                       data-dl='{"da_track":"false","event":"change"}'
+                       type="text"
+                       [ngClass]="{
+                                 'form-control': true,
+                                 'active-input': activeAddress,
+                                  'input-error': noFoundAddressError
+                               }"
+                />
+                <div [hidden]="!noFoundAddressError">
+                  <div class="inputError" *ngIf="!!aboutMeContent">
+                    <i class='fa fa-times-circle errorIcon'></i>
+                    <span class="errorText"
+                          [innerHtml]='aboutMeContent.get("ER_ABOUTME_INVALID_ADDRESS")'></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="no-found-postfix-wrapper col-xs-12 col-sm-2">
+              <div [ngClass]="{
+                            'form-group':true,
+                            'no-found-postfix': true
+                         }">
+                <label [ngClass]="{
+                                  'no-found-postfix-label': true,
+                                  'active-label': activePostfix,
+                                  'label-error': noFoundPostfixError
+                                }">Apt/Suite</label>
+                <input tabindex="10" #noFoundPostfix
+                       #noFoundPostfixInput="ngModel"
+                       name="noFoundPostfixInput"
+                       id="noFoundPostfix"
+                       maxlength="5"
+                       [(ngModel)]="noFoundPostfixText"
+                       data-dl='{"da_track":"false","event":"change"}'
+                       type="text"
+                       [ngClass]="{
+                                 'form-control': true,
+                                 'active-input': activePostfix,
+                                  'input-error': noFoundPostfixError
+                               }"
+                />
+                <div [hidden]="!noFoundPostfixError">
+                  <div class="inputError" *ngIf="!!aboutMeContent">
+                    <i class='fa fa-times-circle errorIcon'></i>
+                    <span class="errorText">Please enter a valid Apt/Suite</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "col-sm-12">
+              <div class="no-found-city-wrapper col-xs-12 col-sm-8">
+                <div [ngClass]="{
+                            'form-group':true,
+                            'no-found-city': true
+                         }">
+                  <label [ngClass]="{
+                                  'no-found-city-label': true,
+
+                                  'active-label': activeCity,
+                                  'label-error': noFoundCityError
+                                }">City</label>
+                  <input tabindex="11" #noFoundCity
+                         #noFoundCityInput="ngModel"
+                         name="noFoundCityInput"
+                         id="noFoundCity"
+                         maxlength="33"
+                         [(ngModel)]="noFoundCityText"
+                         data-dl='{"da_track":"false","event":"change"}'
+                         type="text"
+                         [ngClass]="{
+                                'form-control': true,
+                                 'active-input': activeCity,
+                                  'input-error': noFoundCityError
+                               }"
+                  />
+                  <div [hidden]="!noFoundCityError">
+                    <div class="inputError" *ngIf="!!aboutMeContent">
+                      <i class='fa fa-times-circle errorIcon'></i>
+                      <span class="errorText">Please enter a valid city</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="no-found-state-wrapper col-xs-12 col-sm-2">
+                <div [ngClass]="{
+                            'form-group':true,
+                            'no-found-state': true
+                         }">
+                  <label [ngClass]="{
+                                  'no-found-state-label': true
+                                }">State</label>
+                  <input tabindex="12" #noFoundState
+                         #noFoundStateInput="ngModel"
+                         name="noFoundStateInput"
+                         id="noFoundState"
+                         maxlength="2"
+                         disabled
+                         [(ngModel)]="noFoundStateText"
+                         type="text"
+                         [validateName]="rules?.State"
+                         [ngClass]="{
+                                'form-control': true
+                               }"
+                  />
+                </div>
+              </div>
+              <div class="no-found-zipcode-wrapper col-xs-12 col-sm-2">
+                <div [ngClass]="{
+                            'form-group':true,
+                            'no-found-zipcode': true
+                         }">
+                  <label [ngClass]="{
+                                  'no-found-zipcode-label': true,
+                                  'active-label': activeZipCode,
+                                  'label-error': noFoundZipCodeError || noFoundStateError
+                                }">Zip Code</label>
+                  <input tabindex="13" #noFoundZipCode
+                         #noFoundZipCodeInput="ngModel"
+                         name="noFoundZipCodeInput"
+                         id="noFoundZipCode"
+                         maxlength="5"
+                         [(ngModel)]="noFoundZipCodeText"
+                         data-dl='{"da_track":"false","event":"change"}'
+                         type="text"
+                         [ngClass]="{
+                                 'form-control': true,
+                                 'active-input': activeZipCode,
+                                 'input-error': noFoundZipCodeError || noFoundStateError
+                               }"
+                  />
+                  <div [ngClass]="{'hide': !noFoundZipCodeError || noFoundStateError}">
+                    <div class="inputError" *ngIf="!!aboutMeContent">
+                      <i class='fa fa-times-circle errorIcon'></i>
+                      <span class="errorText" [innerHtml]='aboutMeContent.get("ER_ABOUTME_INVALID_ZIP")'></span>
+                    </div>
+                  </div>
+                  <div [ngClass]="{'hide': !noFoundStateError || noFoundZipCodeError}">
+                    <div class="inputError" *ngIf="!!aboutMeContent">
+                      <i class='fa fa-times-circle errorIcon'></i>
+                      <span class="errorText" [innerHtml]='aboutMeContent.get("ER_ABOUTME_ZIP_IN_DIFFERENT_STATE")'></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DOB -->
+          <div class="about-me-wrapper"> <!-- wrapper -->
+
+            <div class="dobDiv col-sm-4">
+
+              <!--Shared Component-->
+              <app-dob name="dateOfBirth" [attr.value]="aboutMe.dateOfBirth" #dobDir="appDob"
+                       (dateChange)="dateChange($event)" [error]="dobError"></app-dob>
+
+            </div>
+          </div> <!-- end wrapper -->
+
+          <!-- Email Address -->
+
+          <div class="about-me-wrapper no-margin"><!-- wrapper -->
+            <div class="emailDiv col-sm-4 ">
+              <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt':true, 'label-active':emailFilled, 'label-error':emailError}">
+                <label for="emailAddress">Email Address</label>
+              </div>
+              <div [ngClass]="{'input-group':true,
+                             'no-vert-pad':true,
+                             'icon-fix':true,
+                             'inner-addon':true,
+
+                             'input-group-active':emailFilled,
+                             'input-group-error':emailError }">
+
+                <input tabindex="15" class="form-control " type="text" name="emailAddress" id="emailAddress"
+                       data-dl='{"da_track":"false","event":"change"}'
+                       [(ngModel)]="aboutMe.emailAddress" #emailAddress="ngModel"
+                       [validateEmail]="rules?.EmailAddress" (focus)="onFocusLabel($event)"
+                       (dblclick)="dblclickLabel($event.target.id)"
+                       (blur)="onemailAddressBlur($event.target.id)" (keyup)="onChangeLabel($event)" required
+                       maxlength="40">
+              </div>
+
+              <!-- Email error message -->
+
+              <div [hidden]="!emailError">
+                <div class="inputError" *ngIf="!!aboutMeContent">
+                  <i class='fa fa-times-circle errorIcon'></i>
+                  <span class="errorText"
+                        [innerHtml]='aboutMeContent.get("ER_ABOUTME_INVALID_EMAIL_ADDRESS")'></span>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div><!-- end wrapper -->
+
+
+          <!-- Phone Number -->
+          <div class="about-me-wrapper">
+
+            <div class="phoneNumberDiv col-sm-4">
+              <div [ngClass]="{'label-fix': true, 'label-hide': false, 'label-show': true, 'label-txt':true, 'label-active':phoneNumberFilled, 'label-error':phoneNumberError}">
+                <label for="phoneNumber">Phone Number </label>
+              </div>
+              <div [ngClass]="{'input-group': true,
+                 'no-vert-pad':true,
+                 'icon-fix':true,
+                 'inner-addon':true,
+                 'inpur-group-active':phoneNumberFilled,
+                 'input-group-error':phoneNumberError
+                 }">
+
+
+                <input tabindex="16" type="text" class="form-control errorMarg" name="phoneNumber" id="phoneNumber"
+                       [(ngModel)]="aboutMe.phoneNumber"
+                       #phoneNumber="ngModel"
+                       [validatePhoneNumber]="null" (focus)="onFocusLabel($event)"
+                       (blur)="onPhoneNumberBlur($event)" (keyup)="onChangeLabel($event)"
+                       maxlength="14" data-dl='{"da_track":"false","event":"change"}'>
+              </div>
+              <div [hidden]="!phoneNumberError">
+                <div class="inputError">
+                  <i class='fa fa-times-circle errorIcon'></i>
+                  <span class="errorText">{{phoneNumber.errors?.validatePhoneNumber.errors?.errorMsg}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Phone Number -->
+
+          <!--Email disclaimer-->
+
+          <div class="about-me-wrapper"> <!--Wrapper-->
+            <div class="emailDisclaimerDiv col-sm-8">
+              <div class="para-bottom-static-content">
+                <div class="lock-box-container">
+                  <div class="lock-div-box">
+                    <img [src]="lockImage" class="lock-image" id="lockImage"/>
+                  </div>
+                </div>
+                <div [hidden]="emailDisclaimer">
+                  <div class="inputDisclaimer" *ngIf="!!aboutMeContent" >
+                    <span class="disclaimerText">
+                          <p class="clarifyText"
+                             [innerHtml]='aboutMeContent.get("BC_ABOUTME_EMAIL_AND_PHONE_NUMBER_DISCLAIMER")'>
+                          </p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--End Wrapper-->
+
+      <!--CrateDown Image-->
+
+      <div class="caret-wrapper col-xs-12">
+        <div class="caret-container col-xs-12 col-sm-6">
+          <img [src]="crateDownImage" class="centered-x" id=""/>
+        </div></div>
+
+      <div class="cta-container col-xs-12">
+
+        <!-- State Msg -->
+        <div class="about-me-wrapper"> <!-- wrapper -->
+          <div class="col-sm-6">
+            <div class="disclaimer-placement-wrapper col-sm-3 no-pad">
+
+              <div class="stateDisclaimer" [innerHtml]="defaultDisclaimerText"></div>
+            </div>
+          </div><!--End Wrapper-->
+
+
+
+
+
+          <!--Continue-->
+          <div class="btn-placement-wrapper col-sm-6">
+            <button tabindex="17" type="submit" class="btn-cont" id="aboutMeContinue"
+                    data-dl='{"da_track":"true","event":"click"}'>Up Next: Reason For Your Visit
+
+            </button>
+          </div>
+        </div><!--End Wrapper-->
+      </div>
+
+      <!--Container for State Msg and Continue-->
+
+      <div class = "about-me-wrapper">
+        <div class = "disclaimerDiv col-sm-12" *ngIf="showState && disclaimerTxt && disclaimerTxt!=''">
+          <div class = "container-fluid-block">
+            <div  class="stateDisclaimer" [innerHtml]=disclaimerTxt [hidden]="!showState"></div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Address Modal -->
+  <div class="modal fade in show" *ngIf="showModal" id="ErrorModal" role="dialog"
+       (click)="hideSuggestions = true;showModal=false;aboutMe.aboutMeAddress=loadAddress">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-paraent">
+          <div class="modal-toppadding"></div>
+          <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" data-dismiss="modal"
+                    (click)="hideSuggestions = true;showModal=false;aboutMe.aboutMeAddress=loadAddress"
+                    data-dl='{"da_track":"true","event":"change"}'>
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"
+                [innerHtml]='aboutMeContent.get("LBL_ABOUTME_RATING_STATE_ERROR_LABEL")'></h4>
+          </div>
+          <div class="modal-body" *ngIf="!!aboutMeContent">
+            <p [innerHtml]='aboutMeContent.get("ER_ABOUTME_RATING_STATE_ERROR")'>
+            </p>
+          </div>
+          <div *ngIf="!!aboutMeContent" class="modal-footer">
+            <a class="cancel-link mr-auto pull-left" href="javascript:void(0)" data-dismiss="modal"
+               (click)="hideSuggestions = true;showModal=false;aboutMe.aboutMeAddress=loadAddress"
+               data-dl='{"da_track":"true","event":"click"}'>Cancel Link</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    (click)="hideSuggestions = true;showModal=false;aboutMe.aboutMeAddress=loadAddress"
+                    data-dl='{"da_track":"true","event":"click"}'
+                    [innerHtml]='aboutMeContent.get("LBL_ABOUTME_ERROR_MESSAGE_MODAL_BUTTON_TEXT")'></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade in" *ngIf="showModal" (click)="hideSuggestions = true;showModal=false"></div>
+</div>
