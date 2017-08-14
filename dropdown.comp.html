@@ -1,0 +1,26 @@
+<div class="dd-list">
+  <div class="dd-head" #dropdown (click)="expandOptions()">
+    <div class="area text-center" style="width: 4em">
+      <span aria-hidden="true" *ngIf="defaultValueIndex ==selectedIndex">
+      <img src="{{icon_star_white}}" style="height: 2em"></span>
+
+    </div>
+    <div class="dd-content">
+      <h4 [style.line-height]="defaultValueIndex != selectedIndex ? '40px' : '18px'">{{selectedValue.label}}</h4>
+      <span class="tr-fast" [style.display]="defaultValueIndex != selectedIndex ? 'none' : 'inline'">Tailored Option</span>
+    </div>
+    <div class="area text-right">
+      <i class="fa fa-angle-down" style="font-size: 1.286em" aria-hidden="true"></i>
+    </div>
+
+    <ul class="dd-options tr-fast" [ngStyle]="style" [class.opened]="opened" id="dd_options">
+      <li class="dd-option" *ngFor="let option of values; let i = index" (click)="selectOption(i, option)">
+        <div class="area text-center">
+          <span class="star" aria-hidden="true" *ngIf="defaultValueIndex == i"><img src="{{icon_star}}" style="height: 1.5em"></span>
+        </div>
+        <div class="o-content">
+          <h4>{{option.label}}</h4>
+        </div>
+    </ul>
+  </div>
+</div>
