@@ -1,0 +1,107 @@
+<header id="header-container" [class]="getLogoType()" name="header_container">
+  <div class="head-blue-banner visible-xs hidden-sm hidden-md hidden-lg" id="header_top_banner" name="header_top_banner"></div>
+  <div id="header-icon-container" name="header_icon_container">
+    <a id="header_branding_logo" [routerLink]="['/']" name="header_branding_logo">
+      <div></div>
+    </a>
+    <div class="icon-container" id="header_icon_list_container" >
+      <ul>
+        <li tabindex="1" class="header_list_comment leftBorderOne rightBorderOne" name="header_list_comment">
+          <div id="myHeaderLink_List">
+            <a id="myHeaderLink_Chat_Container" >
+              <a id="header_list_chatLogoName"> </a>
+              <a id="header_list_chatLogoText">Chat Now</a>
+            </a>
+          </div>
+        </li>
+        <li tabindex="2" class="header_list_comment rightBorderOne" name="header_list_comment">
+          <div id="myCallLink_header">
+            <a id="myHeaderLink_Call_Container" >
+              <!--<i id="fa-commenting-header" title="Live Chat">chat</i> -->
+              <a id="header_list_callLogoName"> </a>
+              <a id="header_list_callLogoText">Call Now</a>
+            </a>
+          </div>
+        </li>
+        <li tabindex="3" class="header_list_comment rightBorderOne" name="header_list_comment" *ngIf="isAffinityIDDirect()">
+          <div id="mySaveLink_header">
+            <a id="myHeaderLink_Save_Container">
+              <!--<iid="fa-commenting-header"title="LiveChat">chat</i>-->
+              <a id="header_list_saveLogoName"></a>
+              <a id="header_list_saveLogoText">Save & Return</a>
+            </a>
+          </div>
+        </li>
+        <li tabindex="4" (click)="toggleMenu()" id="toggleMenuBar" class="header_list_comment rightBorderOne" name="header_list_comment">
+          <div id="myHeaderLink_header">
+            <a id="myHeaderLink_Menu_Container">
+              <!--<iid="fa-commenting-header"title="LiveChat">chat</i>-->
+              <a id="header_list_menuLogoName"></a>
+              <a id="header_list_menuLogoText">Menu</a>
+            </a>
+          </div>
+        </li>
+
+
+
+        <!--
+        <li tabindex="2"><a [routerLink]="['/']" id="header_list_download" name="header_list_download"><i class="" title="Save"></i></a></li>
+        <li tabindex="3" id="header_list_bars_and_user" name="header_list_bars_and_user">
+          <span class="hidden-xs visible-sm visible-md visible-lg" id="header_user_icon_container" name="header_user_icon_container"><a [routerLink]="['/']"><i class="fa fa-users" title="Contact Us" id="header_user_icon" name="header_user_icon"></i></a></span>
+          <span class="hidden-sm hidden-md hidden-lg visible-xs" (click)="toggleMenu()"><a id="header_bar_icon_container" name="header_bar_icon_container"><i class="fa fa-bars" title="Menu" id="header_bar_icon" name="header_bar_icon"></i></a></span>
+
+        </li>
+        -->
+      </ul>
+    </div>
+  </div>
+  <div class="head-blue-banner hidden-xs visible-sm visible-md visible-lg" id="header_top_banner" name="header_top_banner"></div>
+
+</header>
+
+<!--mobile navigation menu-->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="menu-wrapper">
+    <div class="controls">
+      <span class="close" (click)="toggleMenu()"></span>
+    </div>
+    <ul class="mobile-progress">
+      <li [class.done]="aboutme.iscompleted" [class.active]="aboutme.isactive" (click)="goToStage(aboutme)">
+        <span class="step-num">1</span>
+        <span class="title">About me</span>
+      </li>
+      <li [class.done]="vehicle.iscompleted" [class.active]="vehicle.isactive" [class.disabled]="!aboutme.iscompleted" (click)="goToStage(vehicle)">
+        <span class="step-num">2</span>
+        <span class="title">My Vehicles</span>
+      </li>
+      <li [class.done]="drivers.iscompleted" [class.active]="drivers.isactive" [class.disabled]="!vehicle.iscompleted" (click)="goToStage(drivers)">
+        <span class="step-num">3</span>
+        <span class="title">My Drivers</span>
+      </li>
+      <li [class.done]="coverage.iscompleted" [class.active]="coverage.isactive" [class.disabled]="!drivers.iscompleted" (click)="goToStage(coverage)">
+        <span class="step-num">4</span>
+        <span class="title">My Coverages</span>
+      </li>
+      <li [class.done]="confirm_pay.iscompleted" [class.active]="confirm_pay.isactive" [class.disabled]="!coverage.iscompleted" (click)="goToStage(confirm_pay)">
+        <span class="step-num">5</span>
+        <span class="title">Confirm & Pay</span>
+      </li>
+    </ul>
+    <ul>
+      <li><a>Save</a></li>
+      <li><a>Print</a></li>
+      <li class="menu-section">
+        <div class="section-header" (click)="toggleSubmenu($event)">
+          Contact us
+          <i class="fa fa-angle-down"></i>
+        </div>
+        <ul class="submenu-list">
+          <li><a>Call now</a></li>
+          <li><a>Chat now</a></li>
+        </ul>
+      </li>
+      <li><a>About the Home</a></li>
+      <li><a>FAQs</a></li>
+    </ul>
+  </div>
+</div>
