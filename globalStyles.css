@@ -1,0 +1,514 @@
+@import './partials/variables.scss';
+@import './partials/master-template.scss';
+
+/* You can add global styles to this file, and also import other style files */
+* {
+  font-family: $font-family
+}
+ul {
+  style: none!important;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: initial;
+  transition: 0.3s ease-in-out all;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  position: absolute;
+  width: 100%;
+}
+h3 {
+  font-size: 18px;
+  line-height: 22px;
+  color: $east-bay;
+  font-weight: 700;
+  margin: 12px 12px -19px 118px;
+
+}
+.fa {
+  font-family: FontAwesome;
+}
+#content-wrapper {
+  background: #f6f6f6;
+  background-image: none;
+  width: 100%;
+  margin: 20px auto;
+  position: relative;
+  text-align: left;
+  max-width: 1024px;
+  display: block;
+}
+.select-option {
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.select-option .select-menu {
+  background: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  padding-left: 15px;
+  padding-right: 40px;
+  height: 40px;
+  border: 1px solid $gray216;
+  box-shadow: 1px 1px 2px #e0e0e0;
+  font-size: 18px;
+  color: #484848;
+  font-weight: 700;
+  text-align: left;
+  vertical-align: middle;
+  width: auto;
+}
+.select-option .select-menu ~ .select-arrow-down {
+  font-family: FontAwesome;
+  color: #999;
+  height: 20px;
+  vertical-align: middle;
+  position: absolute;
+  pointer-events: none;
+  right: 15px;
+  top: 9px;
+}
+.select-option .select-menu ~ .select-arrow-down::after {
+  content: "\f0d7";
+}
+.select-option .select-menu:active, .select-option .select-menu:focus {
+  border: 2px solid #009cdb;
+  box-shadow: 1px 1px 4px #e0e0e0;
+}
+.select-option .select-menu:active ~ .select-arrow-down, .select-option .select-menu:focus ~ .select-arrow-down {
+  color: #009cdb;
+}
+.checkbox-option ~ .styled-checkbox {
+  font-family: FontAwesome;
+  border: 2px solid #ccc;
+  background: $white;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+.checkbox-option:checked ~ .styled-checkbox {
+  border: 2px solid #009CDB;
+}
+.checkbox-option ~ .styled-checkbox:before {
+  color: transparent;
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  text-align: center;
+  width: 20px;
+}
+.checkbox-option:checked ~ .styled-checkbox:before {
+  color: #009CDB;
+  content: "\f00c";
+  opacity: 1;
+}
+.checkbox-option:checked ~ .checkbox-label {
+  font-weight: bold;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.checkbox-container > * {
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+}
+.checkbox-container .checkbox-label {
+  padding-left: 10px;
+  font-weight: normal;
+}
+.checkbox-option {
+  display: none;
+}
+.no-pad-orig {
+  padding: 0;
+  margin: 0;
+}
+
+.cursor-point {
+  cursor: default;
+}
+
+.no-pad [class*=col-] {
+  padding: 0;
+  margin: 0;
+}
+.v-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.nosubtoggle-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #484848;
+  margin-bottom: 20px;
+}
+.no-style-inline-list {
+  list-style-type: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.no-style-inline-list li {
+  display: inline-block;
+}
+.margin-rt10 {
+  margin-right: 10px;
+}
+.margin-rt20 {
+  margin-right: 20px;
+}
+.margin-lt10 {
+  margin-left: 10px;
+}
+.margin-lt20 {
+  margin-left: 20px;
+}
+.margin-tb20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.regular-18px-darkgrey {
+  font-size: 18px;
+  color: #484848;
+  font-weight: 500;
+  clear: both;
+}
+.bold-18px-darkgrey {
+  font-size: 18px;
+  color: #484848;
+  font-weight: 700;
+  clear: both;
+}
+.alert-block {
+  min-height: 20px;
+  word-wrap: break-word;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border: 1px solid $border;
+  border-bottom: 5px solid $error-text-color;
+
+}
+
+.errorText {
+  color: $error-text-color !important;
+  margin: 0px;
+}
+
+.errorIcon {
+  float: left;
+  margin-right: 10px;
+}
+.padding-top-0{
+  padding-top: 0px !important;
+}
+.pt10{
+  padding-top: 10px ;
+}
+.padding-left-35 {
+  padding-left: 35px;
+}
+.word-wrap {
+  white-space: pre-line;
+}
+.padding-top-10 {
+  padding-top: 10px;
+}
+.clear{
+  clear: both;
+}
+.f16{
+  font-size: 16px!important;
+}
+.f14{
+  font-size: 14px!important;
+}
+
+@media screen and (min-width: 768px) {
+  .subtoggle-container .nosubtoggle-heading {
+    margin-bottom: 30px;
+  }
+  body {
+    margin-left: 0 !important;
+    overflow: auto !important;
+  }
+}
+.overlay-mask {
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .3;
+  display: none;
+  z-index: 1000;
+}
+
+.overlay-mask.show {
+  display:block;
+}
+
+
+/**
+    Address Suggestions Styles
+*/
+.as-container {
+  border: solid 1px #ccc;
+  border-top: none;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  position: absolute;
+  z-index: 999999;
+  background-color: $white;
+}
+@media screen and (min-width: 768px) {
+  .as-container {
+    margin-top: -20px;
+  }
+}
+.as-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.as-list-item:hover {
+  background-color: $dropdown-hover-color;
+  cursor: pointer;
+}
+.as-list-item span {
+  color: #333;;
+  font-family: $font-family;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px 15px 5px 15px;
+  display: block;
+}
+/* Drop Down Styles */
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  z-index: 2;
+  height: 40px;
+  background:url('https://ts0.hfdstatic.com/plstatic/int/sales/img/Dropdown-Arrow.svg') no-repeat right center white;
+  background-size: 12px 12px;
+  background-position-x: 95%;
+}
+
+select:focus {
+  /*-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 40px;*/
+  background:url('https://ts0.hfdstatic.com/plstatic/int/sales/img/Dropdown-Arrow-highlight.svg') no-repeat right center white;
+  background-size: 12px 12px;
+  background-position-x: 95%;
+}
+
+select::-ms-expand {
+  display: none; /*hide the native dropdown for IE browser */
+}
+
+
+.dd_wrap_pol {
+  width: 75%;
+  margin-left: 10px;
+}
+.dd_wrap {
+  width: 75%;
+  margin-left: 10px;
+}
+
+.col-xs-4 > .dd_wrap {
+
+}
+
+
+/*.dd_wrap {
+  !*margin-left: 30px;*!
+  !*margin-right: 30px;*!
+  width: 75%;
+  margin-left: 30px;
+  max-width: 500px;
+}*/
+
+/*
+.dd_wrap:after {
+  content: "\f0d7";
+  font-family: FontAwesome;
+  font-size: 20px;
+  vertical-align: middle;
+  color: #999999;
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  z-index: 1;
+}
+*/
+
+.dds-drop-down {
+  display: inline-block;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: #FCFCFC;
+  border: 1px solid #E0E0E0;
+  box-shadow: 1px 1px 2px #E0E0E0;
+}
+.dds-drop-down-pol {
+  display: inline-block;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: #FCFCFC;
+  border: 1px solid #E0E0E0;
+  box-shadow: 1px 1px 2px #E0E0E0;
+}
+
+.dds-drop-down:focus {
+  border: 2px solid #009CDB;
+  box-shadow: 1px 2px 4px #E0E0E0;
+}
+
+.dds-drop-down:focus ~ .dd_wrap {
+  color: #009CDB;
+}
+.dds-drop-down-po:focus {
+  border: 2px solid #009CDB;
+  box-shadow: 1px 2px 4px #E0E0E0;
+}
+
+.dds-drop-down-po:focus ~ .dd_wrap {
+  color: #009CDB;
+}
+.dds-drop-down:disabled{
+  pointer-events: none;
+}
+
+@media screen and (max-width: 767px) {
+
+  .dds-drop-down-text {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px !important;
+    color: #484848;
+    text-align: left;
+    vertical-align: middle;
+    padding-right: 31px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+
+  .dds-drop-down-text {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 18px !important;
+    color: #484848;
+    text-align: left;
+    vertical-align: middle;
+    padding-right: 31px;
+  }
+
+}
+.one-line-error>div
+{
+  float: left;
+}
+
+.tundora-input
+{
+  .form-control {
+    height: 40px;
+    border-radius: 0;
+    margin: 20px 0;
+    padding: 6px 15px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: $tundora;
+    border: 1px solid $dark-input;
+  }
+
+  .clarifyText
+  {
+    display: inline-block;
+    position: relative;
+    font-family: Arial, sans-serif;
+    font-size: 0.857em !important;
+    color: $clarify-color !important;
+    text-align: left;
+    white-space: initial;
+  }
+  .form-group label,.input-group label
+  {
+    color:$dark-input !important;
+  }
+  .label-txt label
+  {
+    color:$dark-input !important;
+  }
+  .form-group-active label,.input-group-active label,.label-active label,
+  .form-group .active-label,.input-group .active-label
+  {
+    color:$dark-input-active !important;
+  }
+  .form-group-active input:focus,.input-group-active input:focus,.form-control:focus
+  {
+    border:2px solid $dark-input-active !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  .form-group-error label,.input-group-error label,.label-error label,has-error label
+  {
+    color:$dark-input-error !important;
+  }
+  .form-group-error .form-control-error,.input-group-error .form-control-error,.label-error .form-control-error,.has-error .form-control-error
+  {
+    border:2px solid $dark-input-error !important;
+  }
+}
+.icon-plus{
+  width: 24px;
+  height: 24px;
+  background: url(https://ts0.hfdstatic.com/plstatic/int/sales/img/drivers/icon-plus.png) no-repeat;
+}
+.icon-active{
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  background: url(https://ts0.hfdstatic.com/plstatic/int/sales/img/payment/icon-checked.png) no-repeat;
+}
+.icon-inactive{
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  background: url(https://ts0.hfdstatic.com/plstatic/int/sales/img/payment/icon-unchecked.png) no-repeat;
+}
