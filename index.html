@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>CRMantra Exercise</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div ng-controller="myCtrl">
+        <input placeholder="search park..." ng-model="query" style="width: 80%; height: 50px;"/>
+        <br></br>
+          <div ng-repeat="park in parks | filter: query | orderBy:name"
+          class="list" style="background:{{park.color}}" ng-click='showTable(park)'>
+              <a href>{{park.name}}</a>
+              <table ng-show="park.showTableflag">
+                <tr>
+                  <td>Area</td>
+                  <td>{{park.details.Area}}</td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td>{{park.details.Location}}</td>
+                </tr>
+                <tr>
+                  <td>Year Of Formation</td>
+                  <td>{{park.details["Year of Formation"]}}</td>
+                </tr>
+              </table>
+          </div>
+          <br></br>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+/* Styles go here */
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+  
+  width: 80%;
+}
+
+table, tr {
+  margin: 11px;
+}
+
+.list {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+}
+
+input {
+  padding: 5px;
+}
